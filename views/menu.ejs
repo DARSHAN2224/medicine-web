@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shops</title>
+
+
+  <link rel="stylesheet" href="/assets/css/menu.css">
+
+  <link rel=" preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Rubik:wght@400;500;600;700&family=Shadows+Into+Light&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body id="top">
+
+
+  <header class="header" data-header>
+    <div class="container">
+      <h1>
+        <a href="/shops/<%= shops._id%>" class="logo">
+          <%= shops.name%><span class="span">.</span>
+        </a>
+      </h1>
+      <div class="header-btn-group">
+        <form>
+          <input type="text" placeholder="Search for food, drinks..." name="search">
+          <ul id="suggestions"
+            style="border: 1px solid #ccc; display: none; position: absolute; background: white; list-style: none; padding: 0; width: 200px;">
+          </ul>
+
+          <button class="search-btn" aria-label="Search" data-search-btn>
+            <ion-icon name="search-outline"></ion-icon>
+          </button>
+        </form>
+
+       
+
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section class="section food-menu" id="food-menu">
+    <div class="container">
+      <% shops.productId.forEach(product=> { %>
+        <ul class="food-menu-list">
+          <li>
+            <div class="food-menu-card">
+              <div class="card-banner">
+                <% if(product.image){%>
+                  <img src="/Productimages/<%= product.image%>" loading="lazy" alt="<%= product.image%>" class="w-100">
+                  <% }else{%>
+                    <img src="/imagesStore/image.png" loading="lazy" alt="<%= product.image%>" class="w-100">
+                    <% } %>
+              </div>
+
+              <h3 class="h3 card-title">
+                <%= product.name%>
+              </h3>
+              <div class="price-wrapper">
+                <h4>Description</h4>
+                <data class="price">
+                  <%= product.description%>
+                </data>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <% }); %>
+
+    </div>
+    <div class="pagination">
+      <% if (currentPage> 1) { %>
+        <a href="?search=<%= search %>&page=<%= currentPage - 1 %>">&laquo; Prev</a>
+        <% } %>
+
+          <% for (let i=1; i <=totalPages; i++) { %>
+            <a href="?search=<%= search %>&page=<%= i %>" class="<%= i === currentPage ? 'active' : '' %>">
+              <%= i %>
+            </a>
+            <% } %>
+
+              <% if (currentPage < totalPages) { %>
+                <a href="?search=<%= search %>&page=<%= currentPage + 1 %>">Next &raquo;</a>
+                <% } %>
+    </div>
+
+  </section>
+
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  <script src="/assets/js/menu.js"></script>
+
+</body>
+
+</html>
